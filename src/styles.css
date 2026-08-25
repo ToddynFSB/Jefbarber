@@ -1,0 +1,187 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * JEF BARBER'S — sistema visual derivado das fotos reais da barbearia:
+ * paredes em verde inglês profundo, madeira escura, couro caramelo e latão.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brass: var(--brass);
+  --color-brass-soft: var(--brass-soft);
+  --color-leather: var(--leather);
+  --color-forest: var(--forest);
+  --color-forest-deep: var(--forest-deep);
+  --color-wood: var(--wood);
+  --color-cream: var(--cream);
+  --color-whatsapp: var(--whatsapp);
+  --font-display: "Bodoni Moda", Georgia, serif;
+  --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Barlow Condensed", ui-sans-serif, sans-serif;
+}
+
+:root {
+  --radius: 0.25rem;
+  --forest-deep: oklch(0.21 0.052 158);
+  --forest: oklch(0.31 0.072 156);
+  --wood: oklch(0.26 0.032 62);
+  --leather: oklch(0.52 0.086 58);
+  --brass: oklch(0.79 0.113 84);
+  --brass-soft: oklch(0.88 0.06 86);
+  --cream: oklch(0.95 0.017 88);
+  --whatsapp: oklch(0.62 0.16 149);
+
+  --background: oklch(0.17 0.028 158);
+  --foreground: var(--cream);
+  --card: oklch(0.23 0.035 158);
+  --card-foreground: var(--cream);
+  --popover: oklch(0.23 0.035 158);
+  --popover-foreground: var(--cream);
+  --primary: var(--brass);
+  --primary-foreground: oklch(0.17 0.028 158);
+  --secondary: oklch(0.27 0.04 158);
+  --secondary-foreground: var(--cream);
+  --muted: oklch(0.25 0.03 158);
+  --muted-foreground: oklch(0.74 0.02 90);
+  --accent: var(--leather);
+  --accent-foreground: var(--cream);
+  --destructive: oklch(0.58 0.2 27);
+  --destructive-foreground: var(--cream);
+  --border: oklch(0.86 0.05 88 / 16%);
+  --input: oklch(0.86 0.05 88 / 22%);
+  --ring: var(--brass);
+
+  --shadow-frame: 0 30px 70px -30px oklch(0.1 0.02 158 / 80%);
+  --gradient-veil: linear-gradient(
+    to top,
+    oklch(0.15 0.026 158 / 96%) 4%,
+    oklch(0.15 0.026 158 / 62%) 42%,
+    oklch(0.15 0.026 158 / 22%) 100%
+  );
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  blockquote {
+    font-family: var(--font-display);
+    font-weight: 500;
+  }
+
+  ::selection {
+    background: var(--brass);
+    color: var(--primary-foreground);
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.34em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--brass);
+}
+
+@utility rule-brass {
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    var(--brass) 20%,
+    var(--brass) 80%,
+    transparent
+  );
+  height: 1px;
+}
+
+@utility photo-frame {
+  box-shadow: var(--shadow-frame);
+  outline: 1px solid oklch(0.86 0.05 88 / 18%);
+  outline-offset: -10px;
+}
+
+@utility veil {
+  background-image: var(--gradient-veil);
+}
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@utility reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes hero-pan {
+  from {
+    transform: scale(1.08) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.14) translate3d(0, -1.2%, 0);
+  }
+}
+
+@utility hero-pan {
+  animation: hero-pan 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-pan {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
